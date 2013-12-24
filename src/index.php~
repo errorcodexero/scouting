@@ -1,6 +1,0 @@
-<?php
-
-// redirect to teams
-header( 'Location: teams.php' )
-
-?> 
