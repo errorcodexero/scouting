@@ -1,0 +1,6 @@
+---------------------------------------------------------------------------
+Indent HTML in PHP
+
+<meta>x nxml-mode
+select region
+<m>indent-region

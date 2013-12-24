@@ -1,0 +1,48 @@
+---------------------------------------------------------------------------
+Install WAMP http://www.wampserver.com/en/
+   wampserver2.2e-php5.4.3-httpd-2.4.2-myseql5.5.24
+
+Install Cygwin
+Install Git  
+Install http://fiddler2.com/
+
+set PATH=%PATH%;c:/Tools/Git/bin/;C:\Tools\wamp\bin\php\php5.4.3
+
+
+---------------------------------------------------------------------------
+Debugger
+
+http://www.eclipse.org/pdt/downloads/
+http://blog.thecodingmachine.com/content/setting-xdebug-debugging-environment-php-wamp-eclipse-pdt
+---------------------------------------------------------------------------
+Authentication
+
+http://www.sitepoint.com/understanding-http-digest-access-authentication/
+http://www.php.net/manual/en/features.http-auth.php
+http://www.wikihow.com/Create-a-Secure-Login-Script-in-PHP-and-MySQL
+http://forums.devshed.com/php-faqs-and-stickies-167/how-to-program-a-basic-but-secure-login-system-using-891201.html
+---------------------------------------------------------------------------
+Tutoria
+
+http://www.w3schools.com/php/default.asp
+
+---------------------------------------------------------------------------
+The syntax for checking is like this, where the -l flag is a lower case L:
+
+1	php -l filename
+
+---------------------------------------------------------------------------
+Random functions
+
+// include configuration  
+require_once(dirname(__FILE__) . '/conf/config.php');  
+
+    public function __construct(MyObject $object) {
+        foreach($object as $property => $value) {
+            $this->$property = $value;
+        }
+    }
+
+    echo "team = " . var_dump(get_object_vars($team));
+
+---------------------------------------------------------------------------

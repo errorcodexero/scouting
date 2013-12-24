@@ -1,0 +1,6 @@
+
+http://www.codecademy.com/glossary/css#selectors_child-selectors
+
+style="border:1px solid black;"
+
+ style="border-collapse:separate; border-spacing:0px 20px;"

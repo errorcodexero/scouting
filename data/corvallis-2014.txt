@@ -1,0 +1,31 @@
+847 	PHRED 	Philomath, OR, USA
+955 	CV Robotics 	Corvallis, OR, USA
+956 	Eagle Cybertechnology 	Adair Village, OR, USA
+957 	SWARM 	Albany, OR, USA
+997 	Spartan Robotics 	Corvallis, OR, USA
+1359 	Scalawags 	Lebanon, OR, USA
+1425 	Error Code Xero 	Wilsonville, OR, USA
+1432 	Mahr's Metal Beavers 	Portland, OR, USA
+1510 	Wildcats 	Beaverton, OR, USA
+1540 	Flaming Chickens 	Portland, OR, USA
+1571 	Error404 	Gresham, OR, USA
+2046 	Bear Metal 	Maple Valley, WA, USA
+2192 	YAK Attack 	Newport, OR, USA
+2521 	SERT 	Eugene, OR, USA
+2811 	StormBots 	Vancouver, WA, USA
+2915 	Riverdale Robotics Pandamonium 	Portland, OR, USA
+2990 	Hotwire 	Aumsville, OR, USA
+3024 	My Favorite Team 	Ashland, OR, USA
+3192 	Tiger Bytes 	Tigard, OR, USA
+3673 	C.Y.B.O.R.G. Seagulls 	Seaside, OR, USA
+3712 	RoboCats 	Union, OR, USA
+3995 	Automata 	Redmond, OR, USA
+4043 	NerdHerd 	McMinnville, OR, USA
+4110 	DEEP SPACE NINERS 	brookings, OR, USA
+4125 	Confidential 	Umatilla, OR, USA
+4127 	LoggerBots 	Vernonia, OR, USA
+4457 	ACE 	Portland, OR, USA
+4662 	Tribal Tech 	Scappoose, OR, USA
+5085 	LakerBots 	Blachly, OR, USA
+5198 	RoboKnight Force 	Grants Pass, OR, USA
+5295 	Aldernating Current 	Shelton, WA, USA

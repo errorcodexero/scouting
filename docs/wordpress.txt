@@ -1,0 +1,66 @@
+---------------------------------------------------------------------------
+Installation
+
+Install WAMP:       http://www.wampserver.com/en/
+    includes PHP
+    default port 80
+Install Wordpress   http://codex.wordpress.org
+    to the WAMP apps directory
+
+create wamp/alias/wordpress.conf with:
+---------------------------------------------------------------------------
+Alias /wordpress "c:/Tools/wamp/apps/wordpress-3.8"
+
+<Directory "c:/Tools/wamp/apps/wordpress-3.8/">
+   Options Indexes FollowSymLinks MultiViews
+   AllowOverride all
+   Require local
+</Directory>
+
+---------------------------------------------------------------------------
+---------------------------------------------------------------------------
+
+Open wp-admin/install.php
+
+http://codex.wordpress.org/Installing_WordPress
+
+Setting up the MySQL database
+
+http://codex.wordpress.org/Installing_WordPress#Step_2:_Create_the_Database_and_a_User
+
+http://www.tutorialspoint.com/mysql/index.htm
+
+---------------------------------------------------------------------------
+Cygwin might be useful
+
+Install cygwin      http://www.cygwin.com/
+
+---------------------------------------------------------------------------
+---------------------------------------------------------------------------
+Note that WAMP includes:
+
+Apache:
+    C:\Tools\wamp\bin\apache\apache2.4.2
+
+PHP
+    c:/Tools/wamp/bin/php/php5.4.3
+
+Versions seem to change often
+    wampserver2.2e-php5.4.3-httpd-2.4.2-myseql5.5.24
+
+---------------------------------------------------------------------------
+Upgrade phpMyAdmin
+    http://www.phpmyadmin.net/home_page/downloads.php
+    Unzip 4.1.0 to c:/Tools/wamp/apps/phpMyAdmin-4.1.0
+
+Now go to C:\wamp\alias. Edit phpmyadmin.conf to reference 4.1.0:
+
+Alias /phpmyadmin "c:/Tools/wamp/apps/phpMyAdmin-4.1.0/" 
+
+<Directory "c:/Tools/wamp/apps/phpMyAdmin-4.1.0/">
+   Options Indexes FollowSymLinks MultiViews
+   AllowOverride all
+   Require local
+</Directory>
+
+---------------------------------------------------------------------------

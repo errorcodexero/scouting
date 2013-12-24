@@ -1,0 +1,12 @@
+php import-comp-teams.php "Oregon City District" ../data/oregoncity-2014.txt
+
+php import-comp-teams.php "Wilsonville District" ../data/wilsonville-2014.txt
+
+php import-comp-teams.php "Oregon State University District" ../data/corvallis-2014.txt
+
+
+
+
+
+
+import-comp-teams.php
