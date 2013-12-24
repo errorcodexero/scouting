@@ -43,7 +43,7 @@ If you put it somewhere else, just appropriately adjust the paths.
 
 7. In a browser, go to: http://localhost:<port>
     <port> is if you changed it from 80 above in step #2.
-You should see a very boring default web page for wamp.
+    You should see a very boring default web page for wamp.
 
 8. Click "phpmyadmin" 
     phpMyAdmin is a built-in mysql (database) admin tool. You should see an
@@ -71,7 +71,7 @@ $cfg['Servers'][$i]['AllowNoPassword'] = false;
    b. edit the paths to point to the "app" subdirectory of your git clone.
    b. restart Wamp (right-click "Exit" in system tray, restart).
 
-12. Get to the scouting main page (don't worry that it's ugly, this is all 
+12. Go to the scouting main page (don't worry that it's ugly, this is all 
     just getting started).
   a. In a browser, open http://localhost:<port>/scouting
     

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 23, 2013 at 05:06 AM
+-- Generation Time: Dec 24, 2013 at 04:23 PM
 -- Server version: 5.5.24-log
 -- PHP Version: 5.4.3
 
@@ -13,6 +13,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `scouting`
 --
+CREATE DATABASE IF NOT EXISTS `scouting` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `scouting`;
 
 -- --------------------------------------------------------
 
@@ -22,6 +24,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `alliances` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `MatchID` int(11) NOT NULL,
   `Color` enum('red','blue') DEFAULT NULL,
   `TeamOne` int(11) NOT NULL,
   `TeamTwo` int(11) NOT NULL,
@@ -32,8 +35,9 @@ CREATE TABLE IF NOT EXISTS `alliances` (
   `AutonomousPoints` int(11) NOT NULL,
   `ClimbingPoints` int(11) NOT NULL,
   `TeleopPoints` int(11) NOT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=382 ;
+  PRIMARY KEY (`ID`),
+  KEY `MatchID` (`MatchID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=574 ;
 
 -- --------------------------------------------------------
 
@@ -90,14 +94,10 @@ CREATE TABLE IF NOT EXISTS `matches` (
   `CompetitionID` int(11) NOT NULL,
   `Time` varchar(32) NOT NULL,
   `Number` int(11) NOT NULL,
-  `RedID` int(11) NOT NULL COMMENT 'red alliance ID',
-  `BlueID` int(11) NOT NULL COMMENT 'blue alliance ID',
   `Round` enum('qualification','quarters','semis','finals') NOT NULL,
   PRIMARY KEY (`ID`),
-  KEY `CompetitionID` (`CompetitionID`),
-  KEY `matches_red` (`RedID`),
-  KEY `matches_blue` (`BlueID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+  KEY `CompetitionID` (`CompetitionID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=107 ;
 
 -- --------------------------------------------------------
 
@@ -128,6 +128,12 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 
 --
+-- Constraints for table `alliances`
+--
+ALTER TABLE `alliances`
+  ADD CONSTRAINT `alliances_ibfk_1` FOREIGN KEY (`MatchID`) REFERENCES `matches` (`ID`) ON DELETE CASCADE;
+
+--
 -- Constraints for table `competitionteams`
 --
 ALTER TABLE `competitionteams`
@@ -138,6 +144,4 @@ ALTER TABLE `competitionteams`
 -- Constraints for table `matches`
 --
 ALTER TABLE `matches`
-  ADD CONSTRAINT `matches_blue` FOREIGN KEY (`BlueID`) REFERENCES `alliances` (`ID`) ON DELETE CASCADE,
-  ADD CONSTRAINT `matches_competition` FOREIGN KEY (`CompetitionID`) REFERENCES `competitions` (`ID`),
-  ADD CONSTRAINT `matches_red` FOREIGN KEY (`RedID`) REFERENCES `alliances` (`ID`) ON DELETE CASCADE;
+  ADD CONSTRAINT `matches_competition` FOREIGN KEY (`CompetitionID`) REFERENCES `competitions` (`ID`);
