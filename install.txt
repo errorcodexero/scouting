@@ -38,7 +38,7 @@ If you put it somewhere else, just appropriately adjust the paths.
 
 4. Upgrade phpadmin, see below
 
-6. Start WampServer (there should be an shortcut on you desctop), the Wamp icon 
+6. Start WampServer (there should be an shortcut on you desktop), the Wamp icon 
    in system tray should turn green.
 
 7. In a browser, go to: http://localhost:<port>
