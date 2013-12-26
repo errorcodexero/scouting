@@ -54,7 +54,7 @@ function reportTeams($teams)
 function addTeams($con, $comp, $teams)
 {
     $current = array();
-    foreach ($comp->getTeams($con) as $team) {
+    foreach ($comp->selectTeams($con) as $team) {
         array_push($current, $team->Number);
         // printf("%s %s %s %s %s\n",
         //        $team->Number, $team->Name, $team->City, $team->State, $team->Country);
@@ -70,7 +70,7 @@ function addTeams($con, $comp, $teams)
                 team::insertTeam($con, (array) $team);
             }
 
-            $comp->addTeam($con, $team->Number);
+            $comp->insertTeam($con, $team->Number);
         }
         else {
             printf("Team %s to already added.\n", $team->Number);

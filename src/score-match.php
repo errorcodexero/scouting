@@ -1,6 +1,17 @@
 ﻿<?php
 
+require_once 'lib/db.php';
+require_once 'lib/competition.php';
+require_once 'lib/team.php';
+
 include 'header.php';
+
+$con = DB::connect();
+$result = competition::selectCompetitions($con);
+
+$id = $_GET["id"];
+$comp = competition::selectCompetitionByID($con, $id);
+
 
 ?>
 

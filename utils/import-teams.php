@@ -2,8 +2,8 @@
 
 set_include_path("c:/Tools/wamp/apps/scouting/");
 
-require_once 'obj/db.php';
-require_once 'obj/team.php';
+require_once 'lib/db.php';
+require_once 'lib/team.php';
 
 function json_last_error_msg() {
     switch (json_last_error()) {

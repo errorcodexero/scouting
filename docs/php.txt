@@ -32,6 +32,13 @@ The syntax for checking is like this, where the -l flag is a lower case L:
 1	php -l filename
 
 ---------------------------------------------------------------------------
+Model View Controller
+
+http://ellislab.com/codeigniter
+
+https://www.udemy.com/blog/php-mvc-tutorial/
+
+---------------------------------------------------------------------------
 Random functions
 
 // include configuration  

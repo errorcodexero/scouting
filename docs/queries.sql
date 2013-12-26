@@ -12,12 +12,34 @@ select * from teams
 where EXISTS (SELECT * FROM competitionteams
                 WHERE TeamNumber = team.Number);
 
+---------------------------------------------------------------------------
 select * from teams 
 INNER JOIN competitionteams
 ON (competitionteams.CompetitionID = 10 and 
     competitionteams.TeamNumber = teams.Number)
 order by Number;
+---------------------------------------------------------------------------
+Select matches
 
+    public $match->Time;
+    public $match->Number;
+    public $RedAlliance;
+    public $BlueAlliance;
+    public $match->Round;
+
+$red->
+    $red->Color;
+    $red->TeamOne;
+    $red->TeamTwo;
+    $red->TeamThree;
+
+select matches.*, alliances.* from alliances
+INNER JOIN matches
+ON (matches.CompetitionID = 4 and 
+    alliances.MatchID = matches.ID)
+order by matches.Number;
+
+---------------------------------------------------------------------------
 select count(*) from competitionteams where competitionid = 10;
 
 

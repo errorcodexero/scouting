@@ -1,6 +1,28 @@
 
+http://www.w3schools.com/cssref/css_selectors.asp
+
 http://www.codecademy.com/glossary/css#selectors_child-selectors
+
+http://www.w3.org/TR/CSS2/cascade.html#cascade
 
 style="border:1px solid black;"
 
  style="border-collapse:separate; border-spacing:0px 20px;"
+
+
+table {
+        width: 100%;
+        margin: 15px;   
+        background-color:#efefef;    
+        border-bottom:0;
+        border-left:0;
+}
+
+table, th, td {
+    border:1px solid #BBB;
+}
+
+td, th {
+    border-top:0;
+    border-right:0;
+}

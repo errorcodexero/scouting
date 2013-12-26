@@ -1,6 +1,8 @@
 <?php
 
 require_once "base.php";
+require_once "match.php";
+require_once "alliance.php";
 
 class competition extends base
 {
@@ -63,7 +65,7 @@ class competition extends base
             return new competition($comp);
     }
 
-    public function addTeam($con, $team)
+    public function insertTeam($con, $team)
     {
         base::checkcon($con, __FUNCTION__);
 
@@ -78,7 +80,7 @@ class competition extends base
         return $result;
     }
 
-    public function getTeams($con)
+    public function selectTeams($con)
     {
         base::checkcon($con, __FUNCTION__);
 
@@ -99,6 +101,55 @@ class competition extends base
         mysqli_free_result($result);
 
         return $teams;
+    }
+
+    public function selectMatches($con)
+    {
+        base::checkcon($con, __FUNCTION__);
+
+        $sql = "select matches.*, alliances.* from alliances
+                INNER JOIN matches
+                ON (matches.CompetitionID = " . $this->ID . " and 
+                alliances.MatchID = matches.ID)
+                order by matches.Number, alliances.Color";
+
+        $result = mysqli_query($con,$sql);
+
+        if (!$result) {
+            die('Error: ' . mysqli_error($con));
+        }
+
+        $matches = array();
+
+        while ($row = mysqli_fetch_array($result)) {
+            $match = new match();
+            $match->Competition = this;
+            $match->Time = $row['Time'];
+            $match->Number = $row['Number'];
+            $match->Round = $row['Round'];
+
+            $a1 = new alliance($row->Color == 'red');
+            $a1->set($row);
+            
+            $row = mysqli_fetch_array($result);
+            $a2 = new alliance($row->Color == 'red');
+            $a2->set($row);
+
+            if ($a1->Color == 'red') {
+                $match->RedAlliance = $a1;
+                $match->BlueAlliance = $a2;
+            }
+            else {
+                $match->RedAlliance = $a2;
+                $match->BlueAlliance = $a1;
+            }
+
+            array_push($matches, $match);
+        }
+
+        mysqli_free_result($result);
+
+        return $matches;
     }
 }
 

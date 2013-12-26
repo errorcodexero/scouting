@@ -2,11 +2,11 @@
 
 set_include_path("../src/");
 
-require_once 'obj/db.php';
-require_once 'obj/team.php';
-require_once 'obj/match.php';
-require_once 'obj/alliance.php';
-require_once 'obj/competition.php';
+require_once 'lib/db.php';
+require_once 'lib/team.php';
+require_once 'lib/match.php';
+require_once 'lib/alliance.php';
+require_once 'lib/competition.php';
 
 // Find competition with Name='Portland 2013'
 // for each match
@@ -72,7 +72,7 @@ function reportMatches()
 function addTeams($con, $comp, $matches)
 {
     $current = array();
-    foreach ($comp->getTeams($con) as $team) {
+    foreach ($comp->selectTeams($con) as $team) {
         array_push($current, $team->Number);
         // printf("%s %s %s %s %s\n",
         //        $team->Number, $team->Name, $team->City, $team->State, $team->Country);
@@ -101,7 +101,7 @@ function addTeams($con, $comp, $matches)
     foreach ($allteams as $team) {
         if (!in_array($team, $current)) {
             printf("missing %s\n", $team);
-            $comp->addTeam($con, $team);
+            $comp->insertTeam($con, $team);
         }
     }
 }

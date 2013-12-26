@@ -17,6 +17,56 @@ th
 }
 */
 
+.basic_table
+{
+    font-family:'Trebuchet MS', Arial, Helvetica, sans-serif;
+    width:100%;
+    border-collapse:collapse;
+    margin-left: 0px; 
+    text-align:center;
+}
+
+.basic_table td, basic_table th 
+{
+    font-size:1.2em;
+    border:1px solid #88F;
+    padding:3px 7px 2px 7px;
+}
+
+.basic_table th 
+{
+    font-size:1.4em;
+    padding-top:5px;
+    padding-bottom:4px;
+    background-color: #622;
+    color:white;
+}
+
+.basic_table a
+{
+    color:black; 
+    text-decoration: none;
+}
+
+.basic_table tr.alt td 
+{
+    color:#000;
+    background-color:#EAF2D3;
+}
+
+
+button {
+    background-color: rgb(212,212,18);
+    border-radius:13px;
+    border:2px solid #264d55;
+    box-shadow: inset 3px 3px 4px 3px #cae3fc;
+    color:#0f0f0f;
+    font-family: Verdana;
+    font-size:12px;
+    text-decoration: none;
+    vertical-align: middle;
+}
+
 .button-link {
     padding: 5px 10px;
     background: #4479BA;
@@ -32,22 +82,6 @@ th
     background: #356094;
     border: solid 1px #2A4E77;
     text-decoration: none;
-}
-
-a {
-  color:white;
-}
-
-button {
-    background-color: rgb(212,212,18);
-    border-radius:13px;
-    border:2px solid #264d55;
-    box-shadow: inset 3px 3px 4px 3px #cae3fc;
-    color:#0f0f0f;
-    font-family: Verdana;
-    font-size:12px;
-    text-decoration: none;
-    vertical-align: middle;
 }
 
 .left {
@@ -71,13 +105,20 @@ button {
 
 .red
 {
-    background-color:#ffaeae;
+/*    background-color:#ffaeae; */
+    background-color:#c66;
 }
 
 .blue
 {
-    background-color:#aeaeff;
+    background-color:#66c;
 }
+
+.yellowtext
+{
+    color:rgb(255,255,80);
+}
+
 
 .inline
 {

@@ -58,6 +58,5 @@ class team
             return new team($team);
     }
 }
+
 ?>
-
-

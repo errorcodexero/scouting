@@ -13,7 +13,7 @@ class alliance
     public $Points;
     public $Won;
 
-    function set($object) {
+    public function set($object) {
         foreach($object as $property => $value) {
             $this->$property = $value;
         }
@@ -65,5 +65,3 @@ class alliance
     }
 }
 ?>
-
-
