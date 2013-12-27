@@ -19,12 +19,6 @@ function reportMatches($matches)
     }
 }
 
-function reportTeams($teams) {
-    foreach ($teams as $team) {
-        printf("%s, %s\n", $team->Number, $team->Name);
-    }
-}
-
 //---------------------------------------------------------------------------//
 
 $name = "Oregon City District";
@@ -36,31 +30,8 @@ if (!$comp)
 
 printf("Competition $name ID=%s\n", $comp->ID);
 
-// $teams = $comp->selectTeams($con);
-// reportTeams($teams);
-
 $matches = $comp->selectMatches($con);
 
-foreach ($matches as $match) {
-    $red = $match->RedAlliance;
-    $blue = $match->BlueAlliance;
-
-    printf("
-            <tr> 
-              <td>%s</td>
-              <td>%s</td>
-              <td>%s</td>
-              <td>%s</td>
-              <td>%s</td>
-              <td>%s</td>
-              <td>%s</td>
-              <td>%s</td>
-            </tr>\n", 
-           $match->Time, $match->Number, 
-           $red->TeamOne, $red->TeamTwo, $red->TeamThree, 
-           $blue->TeamOne, $blue->TeamTwo, $blue->TeamThree);
-}
-
-// reportMatches($matches);
+reportMatches($matches);
 
 ?>

@@ -127,10 +127,11 @@ class competition extends base
             $match->Time = $row['Time'];
             $match->Number = $row['Number'];
             $match->Round = $row['Round'];
+            $match->ID = $row['MatchID'];
 
             $a1 = new alliance($row->Color == 'red');
             $a1->set($row);
-            
+
             $row = mysqli_fetch_array($result);
             $a2 = new alliance($row->Color == 'red');
             $a2->set($row);

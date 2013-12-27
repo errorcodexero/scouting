@@ -10,7 +10,7 @@ include 'header.php';
 $con = DB::connect();
 $result = team::selectTeams($con);
 
-    echo "
+?>
 <h1>Teams</h1>
 <a href='team-form.php' class='button-link'>New Team</a>
 <br><br>
@@ -18,18 +18,21 @@ $result = team::selectTeams($con);
   <tr>
     <th>Number</th>
     <th>Name</th>
-  </tr>";
+  </tr>
 
-    while ($row = mysqli_fetch_array($result)) {
-        printf("
+<?php
+
+while ($row = mysqli_fetch_array($result)) {
+    printf("
              <tr>
                 <td class='blue team'><a href=team-form.php?number=%s>%s</a></td>
                 <td>%s</td>
              </tr>", $row['Number'], $row['Number'], $row['Name']);
-    }
+}
 
-    echo "</table>";
+echo "</table>";
 
+mysqli_free_result($result);
 DB::disconnect($con);
 
 include 'footer.php';

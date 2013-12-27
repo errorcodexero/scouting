@@ -8,6 +8,10 @@ Install http://fiddler2.com/
 
 set PATH=%PATH%;c:/Tools/Git/bin/;C:\Tools\wamp\bin\php\php5.4.3
 
+---------------------------------------------------------------------------
+Misc
+
+http://net.tutsplus.com/tutorials/php/30-php-best-practices-for-beginners/
 
 ---------------------------------------------------------------------------
 Debugger
