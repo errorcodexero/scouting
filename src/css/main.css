@@ -38,7 +38,7 @@ th
     font-size:1.4em;
     padding-top:5px;
     padding-bottom:4px;
-    background-color: #622;
+    background-color: #444;
     color:white;
 }
 
@@ -149,3 +149,18 @@ a:hover, a:focus
 {
     color: black;
 }
+
+input[type="checkbox"] {
+    padding:13px 7px 2px 7px;
+    zoom:200%;
+}
+
+input[type="checkbox"] + label span {
+float:right;
+    zoom:100%;
+    position: relative;
+    vertical-align: middle;
+    bottom: 1px;
+}
+
+

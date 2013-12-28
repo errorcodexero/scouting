@@ -10,12 +10,18 @@ include 'authenticate.php';
 include 'header.php';
 $con = DB::connect();
 
-var_dump($_POST);
+$compid = $_SESSION["competitionid"];
+
+function check($val) {
+    if ($val)
+        echo "checked";
+}
+// var_dump($_POST);
 
 $game = new game();
-$game->MatchID = $_POST['match'];
-$game->MatchNumber = $_POST['team'];
-$game->TeamNumber = $_POST['team'];
+$game->MatchID = $_POST['matchid'];
+$game->MatchNumber = $_POST['matchnumber'];
+$game->TeamNumber = $_POST['teamnumber'];
 $game->Autonomous = $_POST['autonomous'];
 $game->Teleop = $_POST['teleop'];
 $game->Climbing = $_POST['climbing'];
@@ -28,11 +34,12 @@ $game->LostCommunication  = $_POST['lostcommunication'];
 $game->DidNotMove  = $_POST['didnotmove'];
 $game->Comment  = $_POST['comment'];
 
-printf("<h1>$game->MatchID, $game->TeamNumber</h1>\n");
+$game->insert($con);
 
 ?>
 
 <div class="heading" style="height:40px; vertical-align:middle">
+  <label class="heading">Match <?php echo $game->MatchNumber; ?></td>
   <label>Scouting Team</label>
   <label style='display:inline;' class='<?php echo $color; ?> team'><?php echo $game->TeamNumber; ?></label>
   <br/>
@@ -52,25 +59,41 @@ printf("<h1>$game->MatchID, $game->TeamNumber</h1>\n");
       <td><?php echo $game->ColoredFrisbees; ?></td>
     </tr>
   </table>
-  <br/>
 
-<?php
-                             /*
-  <input type="checkbox" name="Offensive"/>Offsensive (vs. Defensive)<br/>
-  <input type="checkbox" name="Disqualified"/>Disqualified<br/>
-  <input type="checkbox" name="TippedOver"/>Tipped Over<br/>
-  <input type="checkbox" name="MechanicalFailure"/>Mechanical Failure<br/>
-  <input type="checkbox" name="LostCommunication"/>Lost Communication<br/>
-  <input type="checkbox" name="DidNotMove"/>Did Not Move<br/>
-  <br/>
+  <table>
+      <tr>
+        <td><input type="checkbox" name="offensive" <?php check($game->Offensive); ?> disabled /></td>
+        <td>Offsensive (vs. Defensive)</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" name="disqualified" <?php check($game->Disqualified); ?>  disabled /></td>
+        <td>Disqualified</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" name="tippedover" <?php check($game->TippedOver);  ?> disabled /></td>
+        <td>Tipped Over</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" name="mechanicalfailure" <?php check($game->MechanicalFailure); ?> disabled /></td>
+        <td>Mechanical Failure</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" name="lostcommunication" <?php check($game->LostCommunication); ?>  disabled /></td>
+        <td>Lost Communication</td>
+     </tr>
+      <tr>
+        <td><input type="checkbox" name="didnotmove" <?php check($game->DidNotMove); ?>  disabled /></td>
+        <td>Did Not Move</td>
+      </tr>
+  </table>
 
   <label class="subject" title="Any other important information about robot to record">Comment</label><br/>
-  <textarea rows="8" cols="60" name="Comment"></textarea>
+  <textarea rows="8" cols="60" name="Comment" disabled></textarea>
   <br/>
-  <input value="Submit" type='Submit'>
-</form>
-                             */
 
+<a href='view-matches.php?id=<?php echo $compid; ?>'>Continue</a>
+                             
+<?php
 
 include 'footer.php';
 

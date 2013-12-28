@@ -1,6 +1,13 @@
-SELECT t1.name, t2.salary
-  FROM employee AS t1 INNER JOIN info AS t2 ON t1.name = t2.name;
+---------------------------------------------------------------------------
+Matches for a competition:
 
+Select * from matches where CompetitionID = 4;
+
+---------------------------------------------------------------------------
+Alliances for a competition:
+
+
+---------------------------------------------------------------------------
 select CompetitionID from competitionteams;
 
 select competitionteams.CompetitionID, teams.Name

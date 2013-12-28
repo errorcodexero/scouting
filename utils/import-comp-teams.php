@@ -101,7 +101,7 @@ $teampath = $argv[2];
 printf("Importing teams for competition %s from %s.\n", $compname, $teampath);
 
 $con = DB::connect();
-$comp = competition::selectCompetitionByName($con, $compname);
+$comp = competition::selectByName($con, $compname);
 
 if (!$comp)
     die("Competition \"$name\" not found.");

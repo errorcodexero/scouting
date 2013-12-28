@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 24, 2013 at 04:23 PM
+-- Generation Time: Dec 27, 2013 at 04:18 AM
 -- Server version: 5.5.24-log
 -- PHP Version: 5.4.3
 
@@ -13,8 +13,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `scouting`
 --
-CREATE DATABASE IF NOT EXISTS `scouting` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `scouting`;
 
 -- --------------------------------------------------------
 
@@ -37,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `alliances` (
   `TeleopPoints` int(11) NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `MatchID` (`MatchID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=574 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=714 ;
 
 -- --------------------------------------------------------
 
@@ -86,6 +84,21 @@ CREATE TABLE IF NOT EXISTS `compteams_view` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `games`
+--
+
+CREATE TABLE IF NOT EXISTS `games` (
+  `MatchID` int(11) NOT NULL,
+  `TeamNumber` smallint(11) unsigned NOT NULL,
+  `Properties` text NOT NULL,
+  `Comment` text NOT NULL,
+  KEY `MatchID` (`MatchID`),
+  KEY `TeamNumber` (`TeamNumber`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `matches`
 --
 
@@ -97,8 +110,31 @@ CREATE TABLE IF NOT EXISTS `matches` (
   `Round` enum('qualification','quarters','semis','finals') NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `CompetitionID` (`CompetitionID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=107 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=177 ;
 
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `match_alliances`
+--
+CREATE TABLE IF NOT EXISTS `match_alliances` (
+`CompetitionID` int(11)
+,`Time` varchar(32)
+,`Number` int(11)
+,`Round` enum('qualification','quarters','semis','finals')
+,`ID` int(11)
+,`MatchID` int(11)
+,`Color` enum('red','blue')
+,`TeamOne` int(11)
+,`TeamTwo` int(11)
+,`TeamThree` int(11)
+,`Points` int(11)
+,`Won` tinyint(1)
+,`QualificationPoints` int(11)
+,`AutonomousPoints` int(11)
+,`ClimbingPoints` int(11)
+,`TeleopPoints` int(11)
+);
 -- --------------------------------------------------------
 
 --
@@ -123,6 +159,15 @@ DROP TABLE IF EXISTS `compteams_view`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `compteams_view` AS select `teams`.`Number` AS `Number`,`teams`.`Name` AS `Name`,`teams`.`City` AS `City`,`teams`.`State` AS `State`,`teams`.`Country` AS `Country`,`competitionteams`.`CompetitionID` AS `CompetitionID`,`competitionteams`.`TeamNumber` AS `TeamNumber` from (`teams` join `competitionteams` on((`competitionteams`.`TeamNumber` = `teams`.`Number`)));
 
+-- --------------------------------------------------------
+
+--
+-- Structure for view `match_alliances`
+--
+DROP TABLE IF EXISTS `match_alliances`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `match_alliances` AS select `matches`.`CompetitionID` AS `CompetitionID`,`matches`.`Time` AS `Time`,`matches`.`Number` AS `Number`,`matches`.`Round` AS `Round`,`alliances`.`ID` AS `ID`,`alliances`.`MatchID` AS `MatchID`,`alliances`.`Color` AS `Color`,`alliances`.`TeamOne` AS `TeamOne`,`alliances`.`TeamTwo` AS `TeamTwo`,`alliances`.`TeamThree` AS `TeamThree`,`alliances`.`Points` AS `Points`,`alliances`.`Won` AS `Won`,`alliances`.`QualificationPoints` AS `QualificationPoints`,`alliances`.`AutonomousPoints` AS `AutonomousPoints`,`alliances`.`ClimbingPoints` AS `ClimbingPoints`,`alliances`.`TeleopPoints` AS `TeleopPoints` from (`alliances` join `matches` on((`alliances`.`MatchID` = `matches`.`ID`))) order by `matches`.`CompetitionID`,`matches`.`Number`,`alliances`.`Color`;
+
 --
 -- Constraints for dumped tables
 --
@@ -139,6 +184,13 @@ ALTER TABLE `alliances`
 ALTER TABLE `competitionteams`
   ADD CONSTRAINT `competitionteams_competition` FOREIGN KEY (`CompetitionID`) REFERENCES `competitions` (`ID`),
   ADD CONSTRAINT `competitionteams_team` FOREIGN KEY (`TeamNumber`) REFERENCES `teams` (`Number`);
+
+--
+-- Constraints for table `games`
+--
+ALTER TABLE `games`
+  ADD CONSTRAINT `games_ibfk_2` FOREIGN KEY (`TeamNumber`) REFERENCES `teams` (`Number`),
+  ADD CONSTRAINT `games_ibfk_1` FOREIGN KEY (`MatchID`) REFERENCES `matches` (`ID`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `matches`

@@ -14,6 +14,7 @@ class match extends base
     public $RedAlliance;
     public $BlueAlliance;
     public $Round;
+    public $Games;
 
     // inserts "this" alliance
     public function insert(DB $con) {
@@ -59,6 +60,7 @@ class match extends base
         else {
             $match = new match();
             $match->Competition = this;
+            $match->ID = $row['MatchID'];
             $match->Time = $row['Time'];
             $match->Number = $row['Number'];
             $match->Round = $row['Round'];
@@ -83,6 +85,31 @@ class match extends base
 
             return $match;
         }
+    }
+
+    // select the games for this match.
+    public function selectGames($con)
+    {
+        base::checkcon($con, __FUNCTION__);
+
+        $sql = "select * from games where MatchID = " . $this->ID;
+
+        $result = mysqli_query($con,$sql);
+
+        if (!$result) {
+            die('Error: ' . mysqli_error($con));
+        }
+
+        $games = array();
+        while ($row = mysqli_fetch_assoc($result)) {
+            $game = new game($row);
+
+            array_push($games, $game);
+        }
+
+        mysqli_free_result($result);
+
+        return $games;
     }
 }
 ?>

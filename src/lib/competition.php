@@ -15,6 +15,8 @@ class competition extends base
     public $Type;
 
     public function __construct($object) {
+        // print "competition object = "; var_dump($object);
+
         foreach($object as $property => $value) {
             $this->$property = $value;
         }
@@ -29,7 +31,7 @@ class competition extends base
         return $result;
     }
 
-    public static function selectCompetitionByName($con, $name)
+    public static function selectByName($con, $name)
     {
         base::checkcon($con, __FUNCTION__);
 
@@ -49,7 +51,7 @@ class competition extends base
             return new competition ($comp);
     }
 
-    public static function selectCompetitionByID($con, $id)
+    public static function select($con, $id)
     {
         base::checkcon($con, __FUNCTION__);
 
@@ -112,6 +114,8 @@ class competition extends base
                 ON (matches.CompetitionID = " . $this->ID . " and 
                 alliances.MatchID = matches.ID)
                 order by matches.Number, alliances.Color";
+
+        // print $sql;
 
         $result = mysqli_query($con,$sql);
 

@@ -10,10 +10,13 @@ require_once 'lib/team.php';
 
 $con = DB::connect();
 $id = $_GET["id"];
-$comp = competition::selectCompetitionByID($con, $id);
+$comp = competition::select($con, $id);
 
 if (!$comp)
     die("error: no such competition $id.");
+
+session_start();
+$_SESSION["competitionid"] = $id;
 
 include 'header.php';
 include 'navbar.php';
@@ -23,12 +26,9 @@ include 'navbar.php';
   <tr>
     <th>Time</th>
     <th>Number</th>
-    <th>Red 1</th>
-    <th>Red 2</th>
-    <th>Red 3</th>
-    <th>Blue 1</th>
-    <th>Blue 2</th>
-    <th>Blue 3</th>
+    <th colspan="3">Red</th>
+    <th colspan="3">Blue</th>
+    <th colspan="3">Score</th>
   </tr>
 
 <?php
@@ -44,43 +44,39 @@ function addTeam($team, $hteam, $color, $match)
 }
 
 $matches = $comp->selectMatches($con);
-$highlight = 1425;
+$highlight = 1425;  // yay for us!
 
 foreach ($matches as $match) {
     $red = $match->RedAlliance;
     $blue = $match->BlueAlliance;
 
-    printf("
-            <tr> 
-              <td>%s</td>
-              <td>%s</td>\n", $match->Time, $match->Number);
+?>
+  <tr> 
+     <td><?php echo $match->Time; ?></td>
+     <td><?php echo $match->Number; ?></td>
+<?php
+//  <td class='red team'>%s</td>
+
     addTeam($red->TeamOne, $highlight, "red", $match);
     addTeam($red->TeamTwo, $highlight, "red", $match);
     addTeam($red->TeamThree, $highlight, "red", $match);
     addTeam($blue->TeamOne, $highlight, "blue", $match);
     addTeam($blue->TeamTwo, $highlight, "blue", $match);
     addTeam($blue->TeamThree, $highlight, "blue", $match);
-    printf("</tr>\n"); 
+?>
 
-/*
-    printf("
-            <tr> 
-              <td>%s</td>
-              <td>%s</td>
-              <td class='red team'>%s</td>
-              <td class='red team'>%s</td>
-              <td class='red team'>%s</td>
-              <td class='blue team'>%s</td>
-              <td class='blue team'>%s</td>
-              <td class='blue team'>%s</td>
-            </tr>\n", 
-           $match->Time, $match->Number, 
-           $red->TeamOne, $red->TeamTwo, $red->TeamThree, 
-           $blue->TeamOne, $blue->TeamTwo, $blue->TeamThree);
-*/
+      <td><?php echo $red->Points; ?></td>
+      <td><?php echo $blue->Points; ?></td>
+    </tr>    
+
+<?php
+
 }
 
 echo "</table>\n";
+
+if (count($matches) == 0)
+    echo "<h1>No matches scheduled yet.</h1>\n";
 
 DB::disconnect($con);
 

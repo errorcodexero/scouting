@@ -159,7 +159,7 @@ function reportMatches($matches)
 
 $name = "Oregon City District";
 $con = DB::connect();
-$comp = competition::selectCompetitionByName($con, $name);
+$comp = competition::selectByName($con, $name);
 
 if (!$comp)
     die("Competition \"$name\" not found.");

@@ -125,7 +125,7 @@ function insertMatches($con, $comp, $matches)
 
 $name = "Autodesk Portland Regional 2013";
 $con = DB::connect();
-$comp = competition::selectCompetitionByName($con, $name);
+$comp = competition::selectByName($con, $name);
 
 if (!$comp)
     die("Competition \"$name\" not found.");

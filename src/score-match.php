@@ -3,6 +3,7 @@
 require_once 'lib/db.php';
 require_once 'lib/competition.php';
 require_once 'lib/team.php';
+require_once 'lib/game.php';
 
 include 'authenticate.php';
 
@@ -10,8 +11,18 @@ include 'header.php';
 
 $con = DB::connect();
 $matchid = $_GET["match"];
+$matchid = $_GET["match"];
 $teamnumber = $_GET["team"];
 $match = match::select($con, $matchid);
+
+$game = game::select($con, $matchid, $teamnumber);
+if ($game == null)
+    $game = new game();
+
+function check($val) {
+    if ($val)
+        echo "checked";
+}
 
 // printf("<h1>$matchid, $teamnumber</h1>\n");
 
@@ -60,47 +71,57 @@ if (($teamnumber == $blue->TeamOne) ||
     <tr>
       <td class="subject">Autonomous Points</td>
       <td>
-      <input type="number" name="autonomous" value="0" /></td>
+      <input type="number" name="autonomous" value="<?php echo $game->Autonomous; ?>" /></td>
     </tr>
     <tr>
       <td class="subject">Teleop Points</td>
       <td>
-      <input type="number" name="teleop" value="0" /></td>
+      <input type="number" name="teleop" value="<?php echo $game->Teleop; ?>" /></td>
     </tr>
     <tr>
       <td class="subject">Climbing Points</td>
       <td>
-      <input type="number" name="climbing" value="0" /></td>
+<?php 
+    for ($i = 0; $i <= 30; $i += 10) {
+        printf("<input type='radio' class='inline' name='climbing' %s value='%s' />%s\n",
+               (($game->Climbing == $i) ? 'checked' : ''), $i, $i);
+    }
+?>
+
     </tr>
     <tr>
       <td class="subject" title="Number of Frisbees scored in Pyramid Goal">Colored Frisbees</td>
       <td>
-        <input type="radio" class="inline" name="coloredfrisbees" value="0" />0
-        <input type="radio" class="inline" name="coloredfrisbees" value="1" />1
-        <input type="radio" class="inline" name="coloredfrisbees" value="2" />2
-        <input type="radio" class="inline" name="coloredfrisbees" value="3" />3
-        <input type="radio" class="inline" name="coloredfrisbees" value="4" />4
-        <input type="radio" class="inline" name="coloredfrisbees" value="5" />5
-        <input type="radio" class="inline" name="coloredfrisbees" value="6" />6
+
+<?php 
+    for ($i = 0; $i < 7; $i++) {
+        printf("<input type='radio' class='inline' name='coloredfrisbees' %s value='%s' />%s\n",
+               (($game->ColoredFrisbees == $i) ? 'checked' : ''), $i, $i);
+    }
+?>
+
       </td>
     </tr>
   </table>
 
-  <br/>
-  <input type="checkbox" name="offensive"/>Offsensive (vs. Defensive)<br/>
-  <input type="checkbox" name="disqualified"/>Disqualified<br/>
-  <input type="checkbox" name="tippedover"/>Tipped Over<br/>
-  <input type="checkbox" name="mechanicalfailure"/>Mechanical Failure<br/>
-  <input type="checkbox" name="lostcommunication"/>Lost Communication<br/>
-  <input type="checkbox" name="didnotmove"/>Did Not Move<br/>
+  <table>
+      <tr><td><input type="checkbox" name="offensive" <?php check($game->Offensive); ?> /></td><td>Offsensive (vs. Defensive)</td></tr>
+      <tr><td><input type="checkbox" name="disqualified" <?php check($game->Disqualified); ?> /></td><td>Disqualified</td></tr>
+      <tr><td><input type="checkbox" name="tippedover" <?php check($game->TippedOver); ?> /></td><td>Tipped Over</td></tr>
+      <tr><td><input type="checkbox" name="mechanicalfailure" <?php check($game->MechanicalFailure); ?> /></td><td>Mechanical Failure</td></tr>
+      <tr><td><input type="checkbox" name="lostcommunication" <?php check($game->LostCommunication); ?>/></td><td>Lost Communication</td></tr>
+      <tr><td><input type="checkbox" name="didnotmove" <?php check($game->DidNotMove); ?>/></td><td>Did Not Move</td></tr>
+  </table>
   <br/>
 
   <label class="subject" title="Any other important information about robot to record">Comment</label><br/>
   <textarea rows="8" cols="60" name="comment"></textarea>
   <br/>
+  <input type="hidden" name="compid" value="<?php echo $matchid; ?>" />
   <input type="hidden" name="matchid" value="<?php echo $matchid; ?>" />
   <input type="hidden" name="matchnumber" value="<?php echo $match->Number; ?>" />
-  <input type="hidden" name="team" value="<?php echo $teamnumber; ?>" />
+  <input type="hidden" name="teamnumber" value="<?php echo $teamnumber; ?>" />
+  <input type="hidden" name="color" value="<?php echo $color; ?>" />
   <input value="Submit" type='Submit'>
 </form>
 

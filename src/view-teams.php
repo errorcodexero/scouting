@@ -8,7 +8,7 @@ require_once 'lib/team.php';
 
 $con = DB::connect();
 $id = $_GET["id"];
-$comp = competition::selectCompetitionByID($con, $id);
+$comp = competition::select($con, $id);
 
 if (!$comp)
     die("error: no such competition $id.");
