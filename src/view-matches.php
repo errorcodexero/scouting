@@ -7,6 +7,7 @@ session_start();
 require_once 'lib/db.php';
 require_once 'lib/competition.php';
 require_once 'lib/team.php';
+require_once 'lib/game.php';
 
 $con = DB::connect();
 $id = $_GET["id"];
@@ -28,19 +29,33 @@ include 'navbar.php';
     <th>Number</th>
     <th colspan="3">Red</th>
     <th colspan="3">Blue</th>
-    <th colspan="3">Score</th>
+    <th colspan="2">Score</th>
   </tr>
 
 <?php
 
-function addTeam($team, $hteam, $color, $match)
+function findGame($team, $games)
 {
+    if ($games != null) {
+        foreach ($games as $game) {
+            if ($game->TeamNumber == $team)
+                return $game;
+        }
+    }
+}
+
+function addTeam($team, $hteam, $color, $match, $games)
+{
+    $scored = (findGame($team, $games) != null) ? "*" : "";
+
     // $text = ($team == $hteam) ? "yellowtext" : "";
     if ($team == $hteam)
         $style="style='color:rgb(255,255,0);'";
 
-    printf("              <td class='%s team'><a %s href='score-match.php?match=%s&team=%s' >%s</a></td>\n", 
-           $color, $style, $match->ID, $team, $team);
+    printf("              <td class='$color team'><a $style href='score-game.php?match=$match->ID&team=$team' >$scored$team</a></td>\n"); 
+
+//    printf("              <td class='%s team'><a %s href='score-game.php?match=%s&team=%s' >%s</a></td>\n", 
+//           $color, $style, $match->ID, $team, $team);
 }
 
 $matches = $comp->selectMatches($con);
@@ -57,12 +72,13 @@ foreach ($matches as $match) {
 <?php
 //  <td class='red team'>%s</td>
 
-    addTeam($red->TeamOne, $highlight, "red", $match);
-    addTeam($red->TeamTwo, $highlight, "red", $match);
-    addTeam($red->TeamThree, $highlight, "red", $match);
-    addTeam($blue->TeamOne, $highlight, "blue", $match);
-    addTeam($blue->TeamTwo, $highlight, "blue", $match);
-    addTeam($blue->TeamThree, $highlight, "blue", $match);
+    $games = $match->selectGames($con);
+    addTeam($red->TeamOne, $highlight, "red", $match, $games);
+    addTeam($red->TeamTwo, $highlight, "red", $match, $games);
+    addTeam($red->TeamThree, $highlight, "red", $match, $games);
+    addTeam($blue->TeamOne, $highlight, "blue", $match, $games);
+    addTeam($blue->TeamTwo, $highlight, "blue", $match, $games);
+    addTeam($blue->TeamThree, $highlight, "blue", $match, $games);
 ?>
 
       <td><?php echo $red->Points; ?></td>

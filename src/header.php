@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lan="en">
+<html>
 <head>
 <meta charset="utf-8" />
 <Title>Team 1425 Scouting</Title>

@@ -33,7 +33,8 @@ $game->MechanicalFailure  = $_POST['mechanicalfailure'];
 $game->LostCommunication  = $_POST['lostcommunication'];
 $game->DidNotMove  = $_POST['didnotmove'];
 $game->Comment  = $_POST['comment'];
-
+$color = $_POST['color'];
+$slot = $_POST['slot'];
 $game->insert($con);
 
 ?>
@@ -64,36 +65,42 @@ $game->insert($con);
       <tr>
         <td><input type="checkbox" name="offensive" <?php check($game->Offensive); ?> disabled /></td>
         <td>Offsensive (vs. Defensive)</td>
-      </tr>
-      <tr>
         <td><input type="checkbox" name="disqualified" <?php check($game->Disqualified); ?>  disabled /></td>
         <td>Disqualified</td>
       </tr>
       <tr>
         <td><input type="checkbox" name="tippedover" <?php check($game->TippedOver);  ?> disabled /></td>
         <td>Tipped Over</td>
-      </tr>
-      <tr>
         <td><input type="checkbox" name="mechanicalfailure" <?php check($game->MechanicalFailure); ?> disabled /></td>
         <td>Mechanical Failure</td>
       </tr>
       <tr>
         <td><input type="checkbox" name="lostcommunication" <?php check($game->LostCommunication); ?>  disabled /></td>
         <td>Lost Communication</td>
-     </tr>
-      <tr>
         <td><input type="checkbox" name="didnotmove" <?php check($game->DidNotMove); ?>  disabled /></td>
         <td>Did Not Move</td>
       </tr>
   </table>
 
   <label class="subject" title="Any other important information about robot to record">Comment</label><br/>
-  <textarea rows="8" cols="60" name="Comment" disabled></textarea>
+  <textarea rows="4" cols="60" name="Comment" disabled><?php echo $game->Comment; ?></textarea>
   <br/>
 
-<a href='view-matches.php?id=<?php echo $compid; ?>'>Continue</a>
-                             
 <?php
+
+$nmatch = match::selectByNumber($con, $compid, $game->MatchNumber + 1);
+
+if ($nmatch != null) {
+    if ($color == 'red')
+        $nteam = $nmatch->RedAlliance->$slot;
+    else
+        $nteam = $nmatch->BlueAlliance->$slot;
+
+    echo "<a href='score-game.php?match=$nmatch->ID&team=$nteam'>Continue</a>\n";
+}
+else {
+include 'navbar.php';
+}
 
 include 'footer.php';
 

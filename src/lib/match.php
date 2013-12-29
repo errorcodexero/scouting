@@ -35,6 +35,22 @@ class match extends base
         $this->ID = mysqli_insert_id($con);
     }
 
+    public function selectByNumber($con, $compid, $number)
+    {
+        base::checkcon($con, __FUNCTION__);
+
+        $sql = "select ID from matches where CompetitionID = $compid and Number = $number";
+        $result = mysqli_query($con,$sql);
+
+        if (!$result) {
+            die('Error: ' . mysqli_error($con));
+        }
+
+        $row = mysqli_fetch_array($result);
+
+        return match::select($con, $row['ID']);
+    }
+
     public static function select($con, $id)
     {
         base::checkcon($con, __FUNCTION__);

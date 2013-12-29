@@ -17,6 +17,10 @@ th
 }
 */
 
+body {
+    background-color:#CCC;
+} 
+
 .basic_table
 {
     font-family:'Trebuchet MS', Arial, Helvetica, sans-serif;
@@ -102,6 +106,10 @@ th
     text-align: center;
 }
 
+.myteam {
+    border:5px solid #FF4;
+}
+
 .red
 {
     background-color:#D66;
@@ -151,8 +159,7 @@ a:hover, a:focus
 }
 
 input[type="checkbox"] {
-    padding:13px 7px 2px 7px;
-    zoom:200%;
+    zoom:125%;
 }
 
 input[type="checkbox"] + label span {
