@@ -1,7 +1,7 @@
 Match 
     scouting report
 
-Team (see below) 
+Team 
     Show Matches
     Show Games
     Comments

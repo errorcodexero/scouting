@@ -10,3 +10,4 @@
 <div>
   <label><?php echo $username; ?></label></div>
 </div>
+<hr style="color:#ddd;background-color:#222;height:2px;border:none;" /> 

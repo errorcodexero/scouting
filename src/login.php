@@ -30,8 +30,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	}
 } 
 else {
-
     include 'header.php';
+
 ?>
 
 <h1>Please Log In</h1> 

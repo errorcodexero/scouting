@@ -92,7 +92,7 @@ else if (($teamnumber == $blue->TeamThree) || ($teamnumber == $red->TeamThree))
       </tr>
     </table>
 
-<form method='post' action='post-score.php'>
+<form method='post' action='post-game.php'>
   <table>
     <tr>
       <td class="subject">Autonomous Points</td>

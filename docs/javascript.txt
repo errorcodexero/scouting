@@ -1,0 +1,9 @@
+http://www.html5rocks.com/en/tutorials/file/dndfiles/
+
+https://developer.mozilla.org/en-US/docs/Web/API/FileReader
+
+
+document.querySelector('#afile').addEventListener('change', function(e) {
+
+
+https://gist.github.com/ebidel/2410898#file-xhr-send-formdata-html-L42

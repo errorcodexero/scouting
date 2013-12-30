@@ -16,23 +16,27 @@ if (!$comp)
 include 'header.php';
 include 'navbar.php';
 
-echo "
+?>
 <table class='basic_table'>
   <tr>
     <th>Team Number</th>
     <th>Team Name</th>
     <th>Location</th>
-  </tr>";
+  </tr>
+
+<?php
 
 $teams = $comp->selectTeams($con);
    
 foreach ($teams as $team) {
-    printf("
-            <tr> 
-               <td>%s</td> 
-               <td>%s</td> 
-               <td>%s, %s, %s</td> 
-            </tr>\n", $team->Number, $team->Name, $team->City, $team->State, $team->Country);
+?>
+     <tr> 
+        <td><a href='team-form.php?number=<?php echo $team->Number . "'>" . $team->Number ?></a></td> 
+        <td><?php echo $team->Name; ?></td> 
+        <td><?php echo $team->City . ", " . $team->State . ", " . $team->Country; ?></td>
+     </tr> 
+
+<?php
 }
 
 echo "</table>\n";
