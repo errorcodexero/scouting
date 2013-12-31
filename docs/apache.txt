@@ -1,0 +1,8 @@
+http://httpd.apache.org/docs/2.4/
+
+http://httpd.apache.org/docs/2.4/platform/windows.html
+
+http://httpd.apache.org/docs/trunk/howto/access.html
+
+http://httpd.apache.org/docs/trunk/mod/core.html#allowoverride
+

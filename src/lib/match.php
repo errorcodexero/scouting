@@ -26,7 +26,7 @@ class match extends base
                      $this->Number,
                      $this->Round);
 
-        printf("$sql\n");
+        // printf("$sql\n");
 
         if (!mysqli_query($con,$sql)) {
             die('Error: ' . mysqli_error($con));
@@ -47,8 +47,10 @@ class match extends base
         }
 
         $row = mysqli_fetch_array($result);
-
-        return match::select($con, $row['ID']);
+        if ($row == null)
+            return null;
+        else
+            return match::select($con, $row['ID']);
     }
 
     public static function select($con, $id)

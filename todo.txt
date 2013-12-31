@@ -1,3 +1,6 @@
+Robot
+    Save from team-form.php
+
 Match 
     scouting report
 
@@ -12,8 +15,6 @@ Team
         for qulification alliance partner
         for qulification opposing alliance
 
-Robot (see below)
-
 Score Match per alliance
     Result (won, lost, tied, disqualified)
     final score (might not match scouted game scores)
@@ -21,9 +22,6 @@ Score Match per alliance
         QualificationPoints, AutonomousPoints, ClimbingPoints, TeleopPoints
 
 Calculate Standings
-
-Scout Match view
-    show information to help our alliance
 
 Individual match
     results, next, previous

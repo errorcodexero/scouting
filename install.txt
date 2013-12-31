@@ -1,100 +1,88 @@
 ---------------------------------------------------------------------------
 Goals
 
-The overall goal is to write a scouting web application to help the strategy team:
+The overall goal is to write a scouting web application, accessible from smart
+phones, tablets and such, to help the strategy team:
     - gather information about teams and robots.
     - gather information about matches and robot results.
     - in qulification, determine an appropriate strategy for the next match.
         how to best work with our alliance partners.
         how best to counter the opposing alliance.
-        how to get all this information to the drive team.
+        how to get all this information to the drive team when it's needed.
     - for elimination, strategize for alliance selection.
 
-What follows is a start to get things moving, the details will need to be hammered out
+What follows is a start to get things moving, the details will be hammered out
 during the build season.
 
 Installation
 
-Note that although these steps are detailed, they are meant to be followed 
-with an eye on figuring out what the mean, not just mechanically performing the
-steps.  Truth be told, it's a lot like getting a robot dev environment set up.
-You might have to do something several times before you know why you're doing it, 
-which is when you know what you're supposed to actually do.
+Note that although these steps are detailed, they need to be followed with an
+eye on figuring out what the mean, not just mechanically performing the steps.
+Truth be told, it's a lot like getting a robot dev environment set up.  You
+might have to do something several times before you know why you are doing it,
+which is usually when you know what you're supposed to actually do.
 
 1. Install Wamp: http://www.wampserver.com/en/
               Wampserver (64 bits & PHP 5.4) 2.4
 "WampServer is a Windows web development environment. It allows you to
 create web applications with Apache2, PHP and a MySQL database."
 
-You can install Wamp anywhere, these instructures installed it in c:/Tools/wamp.
-If you put it somewhere else, just appropriately adjust the paths.
+You can install Wamp in any directory, these instructures put it in
+c:/Tools/wamp.  If you put it somewhere else, just adjust the paths.  
+
+Also, if you are Mac or Linux inclined, this should all work just fine, if you
+can figure out how to get your appropriate *AMP installtion going.
 
 2. Change default port if desired
     If you've played with web stuff before you might already have something
-    on port 80.  Change in wamp/bin/apache/apache2.4.2/conf/httpd.conf
+    on port 80.  Change "Listen" in wamp/bin/apache/apache2.4.4/conf/httpd.conf, for example:
+
+Listen 8080
 
 3. Clone the scouting git repository from git:
     git clone https://code.google.com/p/fourteentwentyfive.scouting/
 
-4. Upgrade phpadmin, see below
-
-6. Start WampServer (there should be an shortcut on you desktop), the Wamp icon 
+4. Start WampServer (there should be a shortcut on you desktop), the Wamp icon 
    in system tray should turn green.
 
-7. In a browser, go to: http://localhost:<port>
-    <port> is if you changed it from 80 above in step #2.
+5. In a browser, go to: http://localhost:<port>
+    <port> is if you changed "Listen" from 80 above in step #2.
     You should see a very boring default web page for wamp.
 
-8. Click "phpmyadmin" 
-    phpMyAdmin is a built-in mysql (database) admin tool. You should see an
-    interesting page with a lot going on.
+6. Set up mysql
+    a. Click "phpmyadmin" 
+    b. enter Username "root", no password.
+    c. click Go
 
-9. Set up your scouting database.
-  a. On the left, click "New" to make a new database.
-     In the form that pops up, enter "scouting" in the "Database name" field.
-     click "Create"
-  b. On the left, click "scouting"
-  c. On the resulting view click "Import"
-  d. Under "File to Import", click "Browse" and find db/scout-db.sql from your
-     git repository.
+phpMyAdmin is a mysql (database) admin tool. Once you log in, you should see an
+interesting page with a lot going on.
 
-10. Update your root password
+7. Update your root password
   a. From the phpMyAdmin web page, click "SQL", copy/paste the following, then
-     click the "Go" button: 
-         update user set password=PASSWORD("team1425rock$") where User='root';
+     click "Go": 
+         update mysql.user set password=PASSWORD("team1425rock$") where User='root';
   b. edit: c:/Tools/wamp/apps/phpMyAdmin-4.1.0/config.inc.php, change these two lines:
 $cfg['Servers'][$i]['password'] = 'team1425rock$';
 $cfg['Servers'][$i]['AllowNoPassword'] = false;
 
-11. Connect the scouting app to Wamp:
+8. Set up your scouting database.
+  a. in phpMyAdmin, click "Import"
+  b. Under "File to Import", click "Browse" and find db/scouting.sql from your
+     cloned git repository.
+
+
+9. Connect the scouting app to Wamp:
    a. copy scouting.conf from your git clone to C:\Tools\wamp\alias.
    b. edit the paths to point to the "app" subdirectory of your git clone.
-   b. restart Wamp (right-click "Exit" in system tray, restart).
+   c. restart Wamp (right-click "Exit" in system tray, restart).
 
-12. Go to the scouting main page (don't worry that it's ugly, this is all 
+10. Go to the scouting main page (don't worry that it's ugly, this is all 
     just getting started).
   a. In a browser, open http://localhost:<port>/scouting
     
-
----------------------------------------------------------------------------
-Upgrade phpMyAdmin
-    Go to: http://www.phpmyadmin.net/home_page/downloads.php
-    Get phpMyAdmin-4.0.10-all-languages.zip
-    Unzip to c:/Tools/wamp/apps/phpMyAdmin-4.1.0
-
-Note: new releases appear often, pick a new one if you think it's better...
-
-Now go to C:\Tools\wamp\alias. 
-Copy phpmyadmin.conf from the scouting git clone to C:\Tools\wamp\alias.
-The point is to get phpmyadmin.conf to reference 4.1.0, and to update the 
-settings to allow allow you to connect phpMyAdmin from the "local" computer.
-
-Alias /phpmyadmin "c:/Tools/wamp/apps/phpMyAdmin-4.1.0/" 
-
-<Directory "c:/Tools/wamp/apps/phpMyAdmin-4.1.0/">
-   Options Indexes FollowSymLinks MultiViews
-   AllowOverride all
-   Require local
-</Directory>
+11. Allow external connections
+    a. Edit bin/apache/apache2.4.2/conf/httpd.conf, find the root www directory, like:
+         <Directory "c:/tools/wamp/www/">
+       "Require local" to "Require all granted"
 
 ---------------------------------------------------------------------------

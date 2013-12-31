@@ -9,10 +9,14 @@ $con = DB::connect();
 
 $matchid = $_GET["match"];
 $match = match::select($con, $matchid);
+$number = $match->Number; 
 
 session_start();
 $compid = $_SESSION["competitionid"];
 $comp = competition::select($con, $compid);
+
+$prevmatch = match::selectByNumber($con, $compid, $number - 1);
+$nextmatch = match::selectByNumber($con, $compid, $number + 1);
 
 include 'header.php';
 include 'navbar.php';
@@ -22,7 +26,8 @@ $blue = $match->BlueAlliance;
 
 ?>
 
-<label class="heading">Match 42</label><br/>
+<label class="heading">Match <?php echo $number; ?></label><br/>
+<br/>
 <table class='scout_table'>
   <tr>
     <td class='team red'><?php echo $red->TeamOne; ?></td>
@@ -54,8 +59,19 @@ $blue = $match->BlueAlliance;
   </tr>
 </table>
 
+<br/>
+
+<div class='navbar'>
 
 <?php
+
+if ($prevmatch != null) 
+    printf("<a href='scout-match.php?match=%s' disabled>Previous</a>", $prevmatch->ID);
+
+if ($nextmatch != null) 
+    printf("<a href='scout-match.php?match=%s' disabled>Next</a>", $nextmatch->ID);
+
+echo "</div>\n";
 
 include 'footer.php';
 

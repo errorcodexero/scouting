@@ -3,16 +3,24 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 27, 2013 at 04:18 AM
+-- Generation Time: Dec 31, 2013 at 11:20 PM
 -- Server version: 5.5.24-log
 -- PHP Version: 5.4.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
 --
 -- Database: `scouting`
 --
+CREATE DATABASE IF NOT EXISTS `scouting` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `scouting`;
 
 -- --------------------------------------------------------
 
@@ -92,8 +100,9 @@ CREATE TABLE IF NOT EXISTS `games` (
   `TeamNumber` smallint(11) unsigned NOT NULL,
   `Properties` text NOT NULL,
   `Comment` text NOT NULL,
+  PRIMARY KEY (`MatchID`,`TeamNumber`),
   KEY `MatchID` (`MatchID`),
-  KEY `TeamNumber` (`TeamNumber`)
+  KEY `TeamxNumber` (`TeamNumber`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -135,6 +144,27 @@ CREATE TABLE IF NOT EXISTS `match_alliances` (
 ,`ClimbingPoints` int(11)
 ,`TeleopPoints` int(11)
 );
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `robots`
+--
+
+CREATE TABLE IF NOT EXISTS `robots` (
+  `TeamNumber` smallint(11) unsigned NOT NULL,
+  `Role` enum('offensive','defensive','climber') NOT NULL,
+  `ShootingLocation` enum('pyramid','fullcourt','climber') NOT NULL,
+  `MaxAutonomous` int(11) NOT NULL,
+  `MaxClimb` int(11) NOT NULL,
+  `Lifter` tinyint(1) NOT NULL,
+  `MaxDefensiveHeight` int(11) NOT NULL,
+  `Comment` text NOT NULL,
+  `StrategyPartner` text NOT NULL,
+  `StrategyOpposition` text NOT NULL,
+  PRIMARY KEY (`TeamNumber`),
+  KEY `Team` (`TeamNumber`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 -- --------------------------------------------------------
 
 --
@@ -189,11 +219,21 @@ ALTER TABLE `competitionteams`
 -- Constraints for table `games`
 --
 ALTER TABLE `games`
-  ADD CONSTRAINT `games_ibfk_2` FOREIGN KEY (`TeamNumber`) REFERENCES `teams` (`Number`),
-  ADD CONSTRAINT `games_ibfk_1` FOREIGN KEY (`MatchID`) REFERENCES `matches` (`ID`) ON DELETE CASCADE;
+  ADD CONSTRAINT `games_ibfk_1` FOREIGN KEY (`MatchID`) REFERENCES `matches` (`ID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `games_ibfk_2` FOREIGN KEY (`TeamNumber`) REFERENCES `teams` (`Number`);
 
 --
 -- Constraints for table `matches`
 --
 ALTER TABLE `matches`
   ADD CONSTRAINT `matches_competition` FOREIGN KEY (`CompetitionID`) REFERENCES `competitions` (`ID`);
+
+--
+-- Constraints for table `robots`
+--
+ALTER TABLE `robots`
+  ADD CONSTRAINT `robots_ibfk_1` FOREIGN KEY (`TeamNumber`) REFERENCES `teams` (`Number`) ON DELETE CASCADE;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

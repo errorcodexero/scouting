@@ -4,6 +4,7 @@ set_include_path(__DIR__);
 
 require_once 'lib/db.php';
 require_once 'lib/team.php';
+require_once 'lib/robot.php';
 require_once 'lib/competition.php';
 
 $con = DB::connect();
@@ -13,6 +14,35 @@ $team = team::selectTeam($con, $number);
 session_start();
 $compid = $_SESSION["competitionid"];
 $comp = competition::select($con, $compid);
+
+$robot = robot::select($con, $number);
+if ($robot == null) {  // make a new robot if necessary
+    $robot = new robot();
+    $robot->TeamNumber = $number;
+    $robot->insert($con);
+}
+
+function makeSelector($enum, $value)
+{
+    print "<select>\n";
+    foreach ($enum as $val => $name) {
+        print "<option value='$val'>$name</option>\n";
+    }
+    print "</select>\n";
+}
+
+function makeRoleSelector($value) {
+    makeSelector(array('offensive' => 'Offensive', 
+                       'defensive' => 'Defensive', 
+                       'climber' => 'Climber'), $value);
+}
+
+
+function makeLocationSelector($value) {
+    makeSelector(array('pyramid' => 'Pyramid', 
+                       'fullcourt' => 'Full Court', 
+                       'climber' => 'Climber'), $value);
+}
 
 ?>
 
@@ -30,19 +60,19 @@ $comp = competition::select($con, $compid);
 
 .scout td
 {
-    font-size:1em;
+    font-size:1.2em;
     height: 30px;
     border:1px solid #000;
-    padding:1px 1px 5px 5px;
+    padding:2px 2px 2px 8px;
+    background-color: white;
 }
 
-.scout th 
-{
+.scout td:nth-child(1) {
     font-size:1.2em;
-    width: 200px;
     border:1px solid #000;
     padding:4px 4px 4px 4px;
     background-color: #888;
+    padding:2px 8px 2px 8px;
     color:white;
 }
 
@@ -120,20 +150,56 @@ include 'navbar.php';
 </table>
 <br/>
 
-<label>Strategy for</label>
 <table class="scout">
   <tr>
-    <th>alliance partner</th>
-    <th>opposing alliance</th>
-    <th>alliance selection</th>
+    <td>Role</td>
+    <td><?php makeRoleSelector($robot->Role); ?></td>
   </tr>
-  <tr>
-     <td>score</td>
-     <td>defend</td>
-     <td>3rd among scoring robots</td>
+    <td>Shooting Location</td>
+    <td><?php makeLocationSelector($robot->Role); ?></td>
+  </tr>
+    <td>Max Autonomous</td>
+    <td>
+<?php 
+    for ($i = 0; $i < 8; $i++) {
+        printf("<input type='radio' class='inline' name='maxauto' %s value='%s' />%s\n",
+               (($robot->MaxAutonomous == $i) ? 'checked' : ''), $i, $i);
+    }
+?>
+    </td>
+  </tr>
+    <td>Max Climb</td>
+      <td>
+<?php 
+    for ($i = 0; $i <= 30; $i += 10) {
+        printf("<input type='radio' class='inline' name='climbing' %s value='%s' />%s\n",
+               (($robot->MaxClimb == $i) ? 'checked' : ''), $i, $i);
+    }
+?>
+    </td>
+  </tr>
+    <td>Dumper</td>
+    <td><input type="checkbox" style="zoom:200%;" name="dumper" /></td>
+  </tr>
+  </tr>
+    <td>Lifter</td>
+    <td><input type="checkbox" style="zoom:200%;" name="lifter" <?php if ($robot->Lifter) echo 'checked'; ?> />
+  </tr>
+    <td>Defensive Height</td>
+    <td><input type="number" name="MaxDefensiveHeight" value="<?php echo $robot->MaxDefensiveHeight; ?>"/></td>
+  </tr>
+    <td>Strategy Partner</td>
+    <td><textarea rows="2" cols="60" name="comment"><?php echo $robot->StrategyPartner; ?></textarea></td>
+  </tr>
+    <td>Strategy Opposition</td>
+    <td><textarea rows="2" cols="60" name="comment"><?php echo $robot->StrategyOpposition; ?></textarea></td>
+  </tr>
+    <td>Comment</td>
+    <td><textarea rows="3" cols="60" name="comment"><?php echo $robot->Comment; ?></textarea></td>
   </tr>
 </table>
-<textarea rows="4" cols="60" name="comment">Good scorer, maneuverable</textarea>
+
+
 <br/>
 <div id="images">
   <img src="images/3574-1.png" />

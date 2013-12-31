@@ -118,6 +118,7 @@ else if (($teamnumber == $blue->TeamThree) || ($teamnumber == $red->TeamThree))
                (($game->Climbing == $i) ? 'checked' : ''), $i, $i);
     }
 ?>
+    </td>
     </tr>
     <tr>
       <td class="subject" title="Number of Frisbees scored in Pyramid Goal">Colored Frisbees</td>
