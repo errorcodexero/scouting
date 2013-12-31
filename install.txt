@@ -61,28 +61,64 @@ interesting page with a lot going on.
   a. From the phpMyAdmin web page, click "SQL", copy/paste the following, then
      click "Go": 
          update mysql.user set password=PASSWORD("team1425rock$") where User='root';
-  b. edit: c:/Tools/wamp/apps/phpMyAdmin-4.1.0/config.inc.php, change these two lines:
+  b. Edit: c:/Tools/wamp/apps/phpMyAdmin-4.1.0/config.inc.php, change these two lines:
 $cfg['Servers'][$i]['password'] = 'team1425rock$';
 $cfg['Servers'][$i]['AllowNoPassword'] = false;
 
 8. Set up your scouting database.
-  a. in phpMyAdmin, click "Import"
+  a. In phpMyAdmin, click "Import"
   b. Under "File to Import", click "Browse" and find db/scouting.sql from your
-     cloned git repository.
-
+     cloned git repository, click "Go".
+  c. If all has gone well, you'll have a new database called "scouting" on the 
+     left pane.  
+  d. Click "Import" again, browse to db/scouting-data.sql, click "Go". 
+  e. Click around and explore if you'd like, there's a bunch of fun stuff here.
 
 9. Connect the scouting app to Wamp:
    a. copy scouting.conf from your git clone to C:\Tools\wamp\alias.
    b. edit the paths to point to the "app" subdirectory of your git clone.
    c. restart Wamp (right-click "Exit" in system tray, restart).
 
-10. Go to the scouting main page (don't worry that it's ugly, this is all 
+10. Go to the scouting main page (don't worry that it's ugly, this is 
     just getting started).
   a. In a browser, open http://localhost:<port>/scouting
-    
-11. Allow external connections
-    a. Edit bin/apache/apache2.4.2/conf/httpd.conf, find the root www directory, like:
-         <Directory "c:/tools/wamp/www/">
-       "Require local" to "Require all granted"
+
+Open "Oregon City District" (dummy data has been populated for Oregon City,
+don't try the other links).  Pick an individual team for a match.  If you're 
+asked to login, it's "admin" and "mypass".  You should see a basic form for
+last year's game.
+
+That's it.  If you got this far, congratulations!  Click around, and try to
+think about what you'd like the scouting app to do.  We can talk about what
+we really need during the build meeings.
+
+---------------------------------------------------------------------------
+Upgrade phpMyAdmin
+    Go to: http://www.phpmyadmin.net/home_page/downloads.php
+    Get phpMyAdmin-4.0.10-all-languages.zip
+    Unzip to c:/Tools/wamp/apps/phpMyAdmin-4.1.0
+
+Note: new releases appear often, pick a new one if you think it's better...
+
+Now go to C:\Tools\wamp\alias. 
+Copy phpmyadmin.conf from the scouting git clone to C:\Tools\wamp\alias.
+The point is to get phpmyadmin.conf to reference 4.1.0, and to update the 
+settings to allow allow you to connect phpMyAdmin from the "local" computer.
+
+Alias /phpmyadmin "c:/Tools/wamp/apps/phpMyAdmin-4.1.0/" 
+
+<Directory "c:/Tools/wamp/apps/phpMyAdmin-4.1.0/">
+   Options Indexes FollowSymLinks MultiViews
+   AllowOverride all
+   Require local
+</Directory>
+
+---------------------------------------------------------------------------
+This might be needed:
+
+Allow external connections
+    Edit bin/apache/apache2.4.2/conf/httpd.conf, find the root www directory, like:
+       <Directory "c:/tools/wamp/www/">
+    "Require local" to "Require all granted"
 
 ---------------------------------------------------------------------------
