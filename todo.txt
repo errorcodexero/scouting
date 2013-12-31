@@ -12,16 +12,18 @@ Team
         for qulification alliance partner
         for qulification opposing alliance
 
-Score Match
-    final score (might not match scouted score)
-    Result (won, lost, tied, disqualified)
+Robot (see below)
 
-Alliance
+Score Match per alliance
     Result (won, lost, tied, disqualified)
+    final score (might not match scouted game scores)
     Standings values    
         QualificationPoints, AutonomousPoints, ClimbingPoints, TeleopPoints
 
 Calculate Standings
+
+Scout Match view
+    show information to help our alliance
 
 Individual match
     results, next, previous

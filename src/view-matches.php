@@ -2,8 +2,6 @@
 
 set_include_path(__DIR__);
 
-session_start();
-
 require_once 'lib/db.php';
 require_once 'lib/competition.php';
 require_once 'lib/team.php';
@@ -68,7 +66,8 @@ foreach ($matches as $match) {
 ?>
   <tr> 
      <td><?php echo $match->Time; ?></td>
-     <td><?php echo $match->Number; ?></td>
+     <td><a href='scout-match.php?match=<?php echo $match->ID . "'>" . $match->Number; ?></a></td>
+
 <?php
 //  <td class='red team'>%s</td>
 

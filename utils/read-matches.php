@@ -13,6 +13,8 @@ require_once 'lib/competition.php';
 function reportMatches($matches)
 {
     foreach ($matches as $match) {
+        print "CompetitionID = $match->CompetitionID\n";
+
         $red = $match->RedAlliance;
         $blue = $match->BlueAlliance;
 

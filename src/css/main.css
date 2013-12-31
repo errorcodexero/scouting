@@ -46,6 +46,22 @@ body {
     color:white;
 }
 
+.scout_table
+{
+    font-family:'Trebuchet MS', Arial, Helvetica, sans-serif;
+    width:100%;
+    border-collapse:collapse;
+    margin-left: 0px; 
+}
+
+.scout_table td
+{
+    font-size:1.2em;
+    border:1px solid #000;
+    padding:3px 7px 2px 7px;
+}
+
+
 /*
 .basic_table a
 {

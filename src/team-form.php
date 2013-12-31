@@ -56,11 +56,19 @@ label
 {
     display: none;
 }
+
+img { 
+    max-width: 200px;
+    max-height: 200px;
+}
+
   </style>
 </head>
 <body>
   <script type="text/javascript" src="script/jquery-2.0.3.min.js"></script>
   <script type="text/javascript">
+    var team = <?php echo $team->Number; ?>;
+
   $(document).ready(function() {
       // magic JavaScript to upload selected file.
       document.getElementById("upload").addEventListener('change', handleFileSelect, false);
@@ -72,6 +80,7 @@ function handleFileSelect(evt) {
     var xhr = new XMLHttpRequest();
 
     fd.append("afile", file);
+    fd.append("team", team);
     xhr.open('POST', 'image-upload.php', true);
     xhr.upload.onprogress = function(e) {
         if (e.lengthComputable) {
@@ -88,7 +97,8 @@ function handleFileSelect(evt) {
  
             var image = document.createElement('img');
             image.src = resp.dataUrl;
-            document.body.appendChild(image);
+            var images = document.getElementById("images");
+            images.appendChild(image);
         };
     };
  
@@ -125,11 +135,12 @@ include 'navbar.php';
 </table>
 <textarea rows="4" cols="60" name="comment">Good scorer, maneuverable</textarea>
 <br/>
-<img src="images/3574-1.png" width="20%" height="20%"/>
-
+<div id="images">
+  <img src="images/3574-1.png" />
+</div>
 <div class="image-upload">
     <label for="upload" style="cursor:pointer;">
-        <img src="images/plus.png"/>
+        <img src="icons/plus.png"/>
     </label>
     <input type="file" id="upload" accept="image/*"  />
 </div>

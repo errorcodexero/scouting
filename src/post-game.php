@@ -10,6 +10,7 @@ include 'authenticate.php';
 include 'header.php';
 $con = DB::connect();
 
+session_start();
 $compid = $_SESSION["competitionid"];
 
 function check($val) {

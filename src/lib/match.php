@@ -75,12 +75,10 @@ class match extends base
             return null;
         else {
             $match = new match();
-            $match->Competition = this;
             $match->ID = $row['MatchID'];
             $match->Time = $row['Time'];
             $match->Number = $row['Number'];
             $match->Round = $row['Round'];
-
             $a1 = new alliance($row->Color == 'red');
             $a1->set($row);
             

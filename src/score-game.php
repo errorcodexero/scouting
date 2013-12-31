@@ -10,7 +10,6 @@ include 'title.php';
 
 $con = DB::connect();
 $matchid = $_GET["match"];
-$matchid = $_GET["match"];
 $teamnumber = $_GET["team"];
 $match = match::select($con, $matchid);
 
